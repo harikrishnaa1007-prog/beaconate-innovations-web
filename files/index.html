@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beacovate Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/styles/main.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+      <div class="login-card">
+        <div class="login-brand">
+          <span class="brand-dot"></span>
+          <span class="brand-name">Beacovate</span>
+          <span class="brand-tag">Admin</span>
+        </div>
+        <h1 class="login-title">Welcome back</h1>
+        <p class="login-sub">Sign in to manage your platform</p>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="admin@beacovate.com" value="admin@beacovate.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="••••••••" value="password" />
+        </div>
+        <button class="btn-primary btn-full" onclick="doLogin()">Sign in</button>
+        <p class="login-hint">Demo: any credentials work</p>
+      </div>
+    </div>
+
+    <!-- Dashboard Shell -->
+    <div id="dashboard" class="dashboard hidden">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+          <span class="brand-dot"></span>
+          <span class="brand-name">Beacovate</span>
+        </div>
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-page="overview" onclick="navigate(this,'overview')">
+            <svg viewBox="0 0 20 20"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg>
+            Overview
+          </button>
+          <div class="nav-section-label">Content</div>
+          <button class="nav-item" data-page="services" onclick="navigate(this,'services')">
+            <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Services
+          </button>
+          <button class="nav-item" data-page="portfolio" onclick="navigate(this,'portfolio')">
+            <svg viewBox="0 0 20 20"><rect x="2" y="5" width="16" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 5V4a1 1 0 011-1h4a1 1 0 011 1v1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            Portfolio
+          </button>
+          <button class="nav-item" data-page="blog" onclick="navigate(this,'blog')">
+            <svg viewBox="0 0 20 20"><path d="M4 4h12M4 8h8M4 12h10M4 16h6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Blog Posts
+          </button>
+          <div class="nav-section-label">Operations</div>
+          <button class="nav-item" data-page="orders" onclick="navigate(this,'orders')">
+            <svg viewBox="0 0 20 20"><path d="M3 4h14l-1.5 9H4.5L3 4z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="17" r="1.2"/><circle cx="14" cy="17" r="1.2"/></svg>
+            Orders
+            <span class="nav-badge" id="orders-badge">4</span>
+          </button>
+          <button class="nav-item" data-page="inquiries" onclick="navigate(this,'inquiries')">
+            <svg viewBox="0 0 20 20"><path d="M3 5h14v9H3z" fill="none" stroke="currentColor" stroke-width="1.5" rx="1"/><path d="M3 5l7 6 7-6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            Inquiries
+            <span class="nav-badge" id="inquiries-badge">7</span>
+          </button>
+          <div class="nav-section-label">Admin</div>
+          <button class="nav-item" data-page="users" onclick="navigate(this,'users')">
+            <svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            Users
+          </button>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="admin-avatar">A</div>
+          <div class="admin-info">
+            <span class="admin-name">Admin User</span>
+            <span class="admin-role">Super Admin</span>
+          </div>
+          <button class="logout-btn" onclick="doLogout()" title="Logout">
+            <svg viewBox="0 0 20 20"><path d="M13 4h3a1 1 0 011 1v10a1 1 0 01-1 1h-3M8 14l4-4-4-4M3 10h9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+              <svg viewBox="0 0 20 20"><path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <h2 class="page-title" id="page-title">Overview</h2>
+          </div>
+          <div class="topbar-right">
+            <button class="topbar-btn" id="add-btn" onclick="openAddModal()">
+              <svg viewBox="0 0 20 20"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span id="add-btn-label">Add New</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="page-content" id="page-content">
+          <!-- Dynamically rendered -->
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay hidden" id="modal-overlay" onclick="closeModal(event)">
+      <div class="modal" id="modal">
+        <div class="modal-header">
+          <h3 id="modal-title">Add New</h3>
+          <button class="modal-close" onclick="closeModalDirect()">
+            <svg viewBox="0 0 20 20"><path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-footer">
+          <button class="btn-ghost" onclick="closeModalDirect()">Cancel</button>
+          <button class="btn-primary" id="modal-save-btn" onclick="saveModal()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container" id="toast-container"></div>
+  </div>
+
+  <script src="src/lib/data.js"></script>
+  <script src="src/lib/utils.js"></script>
+  <script src="src/components/cms/services.js"></script>
+  <script src="src/components/cms/portfolio.js"></script>
+  <script src="src/components/cms/blog.js"></script>
+  <script src="src/components/cms/orders.js"></script>
+  <script src="src/components/cms/inquiries.js"></script>
+  <script src="src/components/cms/users.js"></script>
+  <script src="src/components/layout/overview.js"></script>
+  <script src="src/lib/app.js"></script>
+</body>
+</html>
