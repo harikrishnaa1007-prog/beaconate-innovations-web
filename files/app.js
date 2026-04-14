@@ -1,5 +1,4 @@
 // ── Beacovate Admin — Main App Controller ──
-
 let currentPage = 'overview';
 
 // ── Auth ──
